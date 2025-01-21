@@ -5,4 +5,4 @@ Catálogo de Personagens : Os personagens são exibidos em formato de cartões c
 Detalhes no Modal : Ao clicar em um cartão, um modal exibe informações planejadas do personagem, como nome, altura, peso, cor dos olhos e ano de nascimento.
 Paginação : A navegação entre páginas permite explorar todos os personagens disponíveis, com os botões "Próxima" e "Anterior".
 Design Responsivo : Interface adaptada para diversos tamanhos de tela, com atenção especial a dispositivos móveis.
-Estilo Personalizado : Inspirado na franquia, utiliza fontes, núcleos e ícones que remetem ao universo Star Wars.
+Estilo Personalizado : Inspirado na franquia, utiliza fontes, núcleos e ícones que remetem ao universo Star Wars. 
