@@ -256,7 +256,7 @@ nav button:hover {
     }  
 }
 
-@media (max-width: 480px) {  
+@media (max-width: 380px) {  
     .main-content {  
         display: flex;  
         justify-content: space-between;  
