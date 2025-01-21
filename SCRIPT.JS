@@ -20,9 +20,17 @@ async function loadCharacters(url) {
 
     try {  
         const response = await fetch(url);  
-        if (!response.ok) throw new Error('Erro na resposta da API');  
+        if (!response.ok) {  
+            throw new Error(`Erro na resposta: ${response.status} ${response.statusText}`);  
+        }  
         
         const responseJson = await response.json();  
+        // Resto do código...  
+    } catch (error) {  
+        console.error(error);  
+        alert(`Erro ao carregar os personagens: ${error.message}`);  
+    }  
+} 
         responseJson.results.forEach((character) => {  
             const characterId = character.url.split('/')[5]; // Extrai o ID do personagem da URL  
             const card = document.createElement("div");  
