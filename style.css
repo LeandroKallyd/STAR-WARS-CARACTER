@@ -253,29 +253,35 @@ nav button:hover {
     }
 }
 
-@media (max-width: 480px) {
-    header {
-        flex-direction: column; /* Muda a direção do header para coluna */
-        height: auto; /* Permite que o header ajuste sua altura */
-    }
+@media (max-width: 480px) {  
+    header {  
+        flex-direction: column; /* Muda a direção do header para coluna */  
+        height: auto; /* Permite que o header ajuste sua altura */  
+    }  
 
-    .social-media {
-        width: 100%; /* Faz os ícones de mídia social ocuparem toda a largura */
-        justify-content: center; /* Centraliza os ícones */
-    }
+    .social-media {  
+        width: 100%; /* Faz os ícones de mídia social ocuparem toda a largura */  
+        justify-content: center; /* Centraliza os ícones */  
+    }  
 
-    .cards {
-        width: 100%; /* Faz os cards ocuparem toda a largura disponível */
-        height: auto; /* Permite que a altura dos cards se ajuste automaticamente */
-    }
+    .cards {  
+        display: flex; /* Usando flexbox */  
+        flex-wrap: wrap; /* Permite que os cards se movam para a linha seguinte */  
+        width: 100%; /* Faz os cards ocuparem toda a largura disponível */  
+        height: auto; /* Permite que a altura dos cards se ajuste automaticamente */  
+    }  
 
-    .modal-content {
-        width: 90vw; /* Aumenta a largura do modal em telas pequenas */
-        height: auto; /* Permite que a altura do modal se ajuste automaticamente */
-    }
+    .card {  
+        width: calc(100% / 5); /* Faz com que apenas 5 cards sejam mostrados na mesma linha */  
+    }  
 
-    .character-image {
-        width: 150px; /* Reduz a largura da imagem do personagem */
-        height: 150px; /* Reduz a altura da imagem do personagem */
-    }
+    .modal-content {  
+        width: 90vw; /* Aumenta a largura do modal em telas pequenas */  
+        height: auto; /* Permite que a altura do modal se ajuste automaticamente */  
+    }  
+
+    .character-image {  
+        width: 150px; /* Reduz a largura da imagem do personagem */  
+        height: 150px; /* Reduz a altura da imagem do personagem */  
+    }  
 }
