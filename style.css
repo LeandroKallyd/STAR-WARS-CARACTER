@@ -251,6 +251,9 @@ nav button:hover {
         width: 60px; 
         height: 20px; 
     }
+     .card {  
+        width: calc(50% - 20px); /* Dois cards por linha em telas menores */  
+    }  
 }
 
 @media (max-width: 480px) {  
@@ -270,6 +273,7 @@ nav button:hover {
 
     .card {  
         width: 100%; 
+        width: calc(100% - 20px);
     }  
 
     .modal-content {  
