@@ -1,0 +1,281 @@
+@import url('https://fonts.cdnfonts.com/css/star-wars');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    list-style: none;
+    color: #fff;
+}
+
+body {
+    background-image: url(./assets/universo-bg.jpg);
+    background-size: cover;
+}
+
+a {
+    text-decoration: none;
+}
+
+header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.logo {
+    width: 250px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-img {
+    width: 40%;
+    height: auto;
+}
+
+.logo-text {
+    font-family: 'Star Wars', sans-serif;
+    font-size: 1rem;
+}
+
+.social-media {
+    width: 130px;
+    display: flex;
+    justify-content: space-between;
+}
+
+i {
+    font-size: 1.2rem;
+}
+
+i:hover {
+    color: gold;
+}
+
+.main-container {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px 0;
+}
+
+h2 {
+    font-family: 'Star Wars', sans-serif;
+    margin-bottom: 20px;
+    color: gold;
+    font-weight: 300;
+}
+
+.main-content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    column-gap: 20px;
+    row-gap: 10px;
+    padding: 0 20px;
+}
+
+.cards {
+    width: 230px;
+    height: 470px;
+    background-position: 50% 50%;
+    background-size: cover;
+    display: flex;
+    align-items: end;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: 0.5s;
+    padding: 5px;
+}
+
+.cards:hover {
+    transform: scale(1.02);
+}
+
+.character-name-bg {
+    width: 100%;
+    height: 30px;
+    background-color: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+}
+
+.character-name {
+    font-family: 'Star Wars', sans-serif;
+    color: gold;
+    font-size: 1rem;
+}
+
+.buttons {
+    width: 60%; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin-top: 20px;
+}
+
+button {
+    width: 70px; 
+    height: 25px;
+    background-color: gold;
+    color: #000;
+    font-weight: 700;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid #000;
+    outline: none;
+    transition: 0.3s;
+    margin: 0 10px; 
+}
+
+button:hover {
+    background-color: #000;
+    color: gold;
+}
+
+#back-button {
+    visibility: hidden;
+}
+
+footer {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 10px;
+    margin: 40px 0 20px 0;
+}
+
+.footer-logo {
+    font-family: 'Star Wars', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+.copyright { 
+    font-weight: 500;
+}
+
+.modal {
+    visibility: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0, 0.5);
+    position: fixed;
+    top: 0;
+}
+
+.modal-content {
+    width: 25vw;
+    height: 70vh;
+    background-color: #0d0d0d;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    row-gap: 15px;
+    padding: 30px 10px;
+    align-items: center;
+}
+
+.character-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-position: 50% 10%;
+    background-size: cover;
+}
+
+.character-details {
+    font-family: 'Star Wars', sans-serif;
+    font-size: 1rem;
+    font-weight: lighter;
+    color : gold;
+}
+nav {
+    width: 60%; 
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+    margin-top: 20px;
+}
+
+nav button {
+    width: 100px; 
+    height: 25px;
+    background-color: gold;
+    color: #000;
+    font-weight: 700;
+    border-radius: 3px;
+    cursor: pointer;
+    border: 1px solid #000;
+    outline: none;
+    transition: 0.3s;
+    margin: 0 10px; 
+}
+
+nav button:hover {
+    background-color: #000;
+    color: gold;
+}
+
+@media (max-width: 768px) {
+    .logo {
+        width: 150px; /* Ajusta a largura do logo em telas menores */
+    }
+
+    .main-content {
+        padding: 0 10px; /* Reduz o padding em telas menores */
+    }
+
+    .cards {
+        width: 180px; /* Reduz a largura dos cards */
+        height: 400px; /* Reduz a altura dos cards */
+    }
+
+    h2 {
+        font-size: 1.5rem; /* Aumenta o tamanho da fonte do título */
+    }
+
+    button {
+        width: 60px; /* Reduz a largura dos botões */
+        height: 20px; /* Reduz a altura dos botões */
+    }
+}
+
+@media (max-width: 480px) {
+    header {
+        flex-direction: column; /* Muda a direção do header para coluna */
+        height: auto; /* Permite que o header ajuste sua altura */
+    }
+
+    .social-media {
+        width: 100%; /* Faz os ícones de mídia social ocuparem toda a largura */
+        justify-content: center; /* Centraliza os ícones */
+    }
+
+    .cards {
+        width: 100%; /* Faz os cards ocuparem toda a largura disponível */
+        height: auto; /* Permite que a altura dos cards se ajuste automaticamente */
+    }
+
+    .modal-content {
+        width: 90vw; /* Aumenta a largura do modal em telas pequenas */
+        height: auto; /* Permite que a altura do modal se ajuste automaticamente */
+    }
+
+    .character-image {
+        width: 150px; /* Reduz a largura da imagem do personagem */
+        height: 150px; /* Reduz a altura da imagem do personagem */
+    }
+}
