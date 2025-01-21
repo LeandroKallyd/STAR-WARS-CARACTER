@@ -1,172 +1,157 @@
-let currentPageUrl = 'https://swapi.py4e.com/api/people/';
+let currentPageUrl = 'https://swapi.py4e.com/api/people/';  
 
-window.onload = async () => {
-    try {
-        await loadCharacters(currentPageUrl);
-    } catch (error) {
-        console.log(error);
-        alert('Erro ao carregar cards');
-    }
-    const nextButton = document.getElementById('next-button');
-    const backButton = document.getElementById('back-button');
-    nextButton.addEventListener('click', loadNextPage);
-    backButton.addEventListener('click', loadPreviousPage);
-};
+window.onload = async () => {  
+    try {  
+        await loadCharacters(currentPageUrl);  
+    } catch (error) {  
+        console.error(error);  
+        alert('Erro ao carregar os cards');  
+    }  
 
-async function loadCharacters(url) {
-    const mainContent = document.getElementById('main-content');
-    mainContent.innerHTML = ''; // Limpa a página
+    const nextButton = document.getElementById('next-button');  
+    const backButton = document.getElementById('back-button');  
+    nextButton.addEventListener('click', loadNextPage);  
+    backButton.addEventListener('click', loadPreviousPage);  
+};  
 
-    try {
-        const response = await fetch(url);
-        const responseJson = await response.json();
+async function loadCharacters(url) {  
+    const mainContent = document.getElementById('main-content');  
+    mainContent.innerHTML = ''; // Limpa a página  
 
-        responseJson.results.forEach((character) => {
-            const characterId = character.url.split('/')[5]; // Extrai o ID do personagem da URL
-            const card = document.createElement("div");
-            card.style.backgroundImage = `url('https://starwars-visualguide.com/assets/img/characters/${characterId}.jpg')`;
-            card.className = "cards";
-            const characterNameBG = document.createElement("div");
-            characterNameBG.className = "character-name-bg";
-            const characterName = document.createElement("span");
-            characterName.className = "character-name";
+    try {  
+        const response = await fetch(url);  
+        if (!response.ok) throw new Error('Erro na resposta da API');  
+        
+        const responseJson = await response.json();  
+        responseJson.results.forEach((character) => {  
+            const characterId = character.url.split('/')[5]; // Extrai o ID do personagem da URL  
+            const card = document.createElement("div");  
+            card.style.backgroundImage = `url('https://starwars-visualguide.com/assets/img/characters/${characterId}.jpg')`;  
+            card.className = "cards";  
+            const characterNameBG = document.createElement("div");  
+            characterNameBG.className = "character-name-bg";  
+            const characterName = document.createElement("span");  
+            characterName.className = "character-name";  
+            characterName.innerText = character.name;  
 
-            characterName.innerText = `${character.name}`;
+            characterNameBG.appendChild(characterName);  
+            card.appendChild(characterNameBG);  
 
-            characterNameBG.appendChild(characterName);
-            card.appendChild(characterNameBG);
+            // Ação ao clicar no card para abrir o modal  
+            card.onclick = () => openModal(characterId, character);  
 
-            card.onclick = () => {
-                const modal = document.getElementById('modal');
-                modal.style.visibility = "visible";
-                const modalContent = document.getElementById('modal-content');
-                modalContent.innerHTML = '';
-                const characterImage = document.createElement("div");
-                characterImage.style.backgroundImage = `url('https://starwars-visualguide.com/assets/img/characters/${characterId}.jpg')`;
-                characterImage.className = "character-image";
+            mainContent.appendChild(card);  
+        });  
 
-                const name = document.createElement("span");
-                name.className = "character-details";
-                name.innerText = `Nome: ${character.name}`;
+        updateNavigationButtons(responseJson);  
+        currentPageUrl = url; // Atualiza a URL da página atual  
 
-                const characterHeight = document.createElement("span");
-                characterHeight.className = "character-details";
-                characterHeight.innerText = `Altura: ${convertHeight(character.height)}`;
+    } catch (error) {  
+        console.error(error);  
+        alert('Erro ao carregar os personagens');  
+    }  
+}  
 
-                const mass = document.createElement("span");
-                mass.className = "character-details";
-                mass.innerText = `Peso: ${convertMass(character.mass)}`;
+function openModal(characterId, character) {  
+    const modal = document.getElementById('modal');  
+    modal.style.visibility = "visible";  
+    const modalContent = document.getElementById('modal-content');  
+    modalContent.innerHTML = ''; // Limpa o conteúdo do modal  
+    
+    const characterImage = document.createElement("div");  
+    characterImage.style.backgroundImage = `url('https://starwars-visualguide.com/assets/img/characters/${characterId}.jpg')`;  
+    characterImage.className = "character-image";  
 
-                const eyeColor = document.createElement("span");
-                eyeColor.className = "character-details";
-                eyeColor.innerText = `Cor dos Olhos: ${convertEyeColor(character.eye_color || 'Indefinido')}`; 
+    modalContent.appendChild(characterImage);  
+    modalContent.appendChild(createCharacterDetail('Nome', character.name));  
+    modalContent.appendChild(createCharacterDetail('Altura', convertHeight(character.height)));  
+    modalContent.appendChild(createCharacterDetail('Peso', convertMass(character.mass)));  
+    modalContent.appendChild(createCharacterDetail('Cor dos Olhos', convertEyeColor(character.eye_color || 'Indefinido')));  
+    modalContent.appendChild(createCharacterDetail('Ano de Nascimento', convertBirthYear(character.birth_year)));  
+}  
 
-                const birthYear = document.createElement("span");
-                birthYear.className = "character-details";
-                birthYear.innerText = `Ano de Nascimento: ${convertBirthYear(character.birth_year)}`;
+function createCharacterDetail(label, value) {  
+    const span = document.createElement("span");  
+    span.className = "character-details";  
+    span.innerText = `${label}: ${value}`;  
+    return span;  
+}  
 
-                modalContent.appendChild(characterImage);
-                modalContent.appendChild(name);
-                modalContent.appendChild(characterHeight);
-                modalContent.appendChild(mass);
-                modalContent.appendChild(eyeColor);
-                modalContent.appendChild(birthYear);
-            }
+function updateNavigationButtons(responseJson) {  
+    const nextButton = document.getElementById('next-button');  
+    const backButton = document.getElementById('back-button');  
+    nextButton.disabled = !responseJson.next;  
+    backButton.disabled = !responseJson.previous;  
+    backButton.style.visibility = responseJson.previous ? "visible" : "hidden";  
+}  
 
-            mainContent.appendChild(card);
-        });
+async function loadNextPage() {  
+    if (!currentPageUrl) return;  
+    try {  
+        const response = await fetch(currentPageUrl);  
+        const responseJson = await response.json();  
+        if (responseJson.next) {  
+            await loadCharacters(responseJson.next);  
+        }  
+    } catch (error) {  
+        console.error(error);  
+        alert('Erro ao carregar a próxima página');  
+    }  
+}  
 
-        const nextButton = document.getElementById('next-button');
-        const backButton = document.getElementById('back-button');
-        nextButton.disabled = !responseJson.next;
-        backButton.disabled = !responseJson.previous;
+async function loadPreviousPage() {  
+    if (!currentPageUrl) return;  
+    try {  
+        const response = await fetch(currentPageUrl);  
+        const responseJson = await response.json();  
+        if (responseJson.previous) {  
+            await loadCharacters(responseJson.previous);  
+        }  
+    } catch (error) {  
+        console.error(error);  
+        alert('Erro ao carregar a página anterior');  
+    }  
+}  
 
-        backButton.style.visibility = responseJson.previous ? "visible" : "hidden";
+function hideModal() {  
+    const modal = document.getElementById("modal");  
+    modal.style.visibility = "hidden";  
+}  
 
-        // Atualiza a URL da página atual
-        currentPageUrl = url;
+function convertEyeColor(eyeColor) {  
+    const cores = {  
+        blue: "azul",  
+        brown: "castanho",  
+        green: "verde",  
+        yellow: "amarelo",  
+        black: "preto",  
+        pink: "rosa",  
+        red: "vermelho",  
+        orange: "laranja",  
+        hazel: "avela",  
+        gray: "cinza",  
+        unknown: "desconhecido",  
+    };  
+    return cores[eyeColor.toLowerCase()] || eyeColor;  
+}  
 
-    } catch (error) {
-        alert('Erro ao carregar os personagens');
-        console.log(error);
-    }
-}
+function convertHeight(height) {  
+    if (height === "unknown") {  
+        return "desconhecido";  
+    }  
+    return (height / 100).toFixed(2) + ' m'; // Adiciona unidade de medida  
+}  
 
-async function loadNextPage() {
-    if (!currentPageUrl) return;
+function convertMass(mass) {  
+    if (mass === "unknown") {  
+        return "desconhecido";  
+    }  
+    return `${mass} kg`;  
+}  
 
-    try {
-        const response = await fetch(currentPageUrl);
-        const responseJson = await response.json();
-        if (responseJson.next) {
-            await loadCharacters(responseJson.next);
-        }
-    } catch (error) {
-        console.log(error);
-        alert('Erro ao carregar a próxima página');
-    }
-}
-
-async function loadPreviousPage() {
-    if (!currentPageUrl) return;
-
-    try {
-        const response = await fetch(currentPageUrl);
-        const responseJson = await response.json();
-        if (responseJson.previous) {
-            await loadCharacters(responseJson.previous);
-        }
-    } catch (error) {
-        console.log(error);
-        alert('Erro ao carregar a página anterior');
-    }
-}
-
-function hideModal(){
-
-    const modal = document.getElementById ("modal")
-    modal.style.visibility = "hidden"
-}
-
-
-function convertEyeColor(eyeColor) {
-    const cores = {
-        blue: "azul",
-        brown: "castanho",
-        green: "verde",
-        yellow: "amarelo",
-        black: "preto",
-        pink: "rosa",
-        red: "vermelho",
-        orange: "laranja",
-        hazel: "avela",
-        gray: "cinza",
-        unknown: "desconhecido", // Corrigido de "unkdown" para "unknown"
-    };
-
-return cores[eyeColor.toLowerCase()] || eyeColor;
-
-
-}
-
-function convertHeight(height) {
-
-    if (height === "unknown") {
-        return "desconhecido"; }
-        return (height / 100).toFixed(2);
-}
-
-function convertMass(mass){
-
-    if(mass  === "unknown"){
-        return "desconhecido";
-    }
-    return `${mass} kg`
-}
-
-function convertBirthYear(birthYear){
-if(birthYear  === "unknown"){
-    return "desconhecido";
+function convertBirthYear(birthYear) {  
+    return birthYear === "unknown" ? "desconhecido" : birthYear;  
 }
 return birthYear
 }
+
