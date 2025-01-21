@@ -253,7 +253,7 @@ nav button:hover {
     }
 }
 
-@media (max-width: 300px) {  
+@media (max-width: 480px) {  
     .main-content {  
         display: flex;  
         justify-content: space-between;  
