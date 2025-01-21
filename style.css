@@ -248,40 +248,36 @@ nav button:hover {
     }
 
     button {
-        width: 60px; /* Reduz a largura dos botões */
-        height: 20px; /* Reduz a altura dos botões */
+        width: 60px; 
+        height: 20px; 
     }
 }
 
 @media (max-width: 480px) {  
-    header {  
-        flex-direction: column; /* Muda a direção do header para coluna */  
-        height: auto; /* Permite que o header ajuste sua altura */  
+    .main-content {  
+        display: flex;  
+        justify-content: space-between;  
+        flex-wrap: wrap;  
+        padding: 0 10px; 
     }  
-
-    .social-media {  
-        width: 100%; /* Faz os ícones de mídia social ocuparem toda a largura */  
-        justify-content: center; /* Centraliza os ícones */  
-    }  
-
+    
     .cards {  
-        display: flex; /* Usando flexbox */  
-        flex-wrap: wrap; /* Permite que os cards se movam para a linha seguinte */  
-        width: 100%; /* Faz os cards ocuparem toda a largura disponível */  
-        height: auto; /* Permite que a altura dos cards se ajuste automaticamente */  
+        flex: 1 1 calc(20% - 10px); 
+        height: auto;
+        margin: 5px; 
     }  
 
     .card {  
-        width: calc(100% / 5); /* Faz com que apenas 5 cards sejam mostrados na mesma linha */  
+        width: 100%; 
     }  
 
     .modal-content {  
-        width: 90vw; /* Aumenta a largura do modal em telas pequenas */  
-        height: auto; /* Permite que a altura do modal se ajuste automaticamente */  
+        width: 90vw;  
+        height: auto;  
     }  
 
     .character-image {  
-        width: 150px; /* Reduz a largura da imagem do personagem */  
-        height: 150px; /* Reduz a altura da imagem do personagem */  
+        width: 150px; 
+        height: 150px;
     }  
 }
